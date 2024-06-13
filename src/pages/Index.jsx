@@ -1,17 +1,55 @@
-// Update this page (the content is just a fallback if you fail and example)
-// Use chakra-ui
-import { Container, Text, VStack } from "@chakra-ui/react";
+import { Container, Box, Text, VStack, Button, Image, Heading, Flex } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-// Example of using react-icons
-// import { FaRocket } from "react-icons/fa";
-// <IconButton aria-label="Add" icon={<FaRocket />} size="lg" />; // IconButton would also have to be imported from chakra
+const professionals = [
+  {
+    name: "João Silva",
+    specialization: "Eletricista",
+    description: "Especializado em instalações elétricas residenciais e comerciais.",
+    image: "/images/eletricista.jpg",
+  },
+  {
+    name: "Maria Oliveira",
+    specialization: "Pedreira",
+    description: "Experiência em construção e reforma de alvenaria.",
+    image: "/images/pedreira.jpg",
+  },
+  {
+    name: "Carlos Pereira",
+    specialization: "Pintor",
+    description: "Pintura residencial e comercial com acabamento de alta qualidade.",
+    image: "/images/pintor.jpg",
+  },
+];
 
 const Index = () => {
+  const navigate = useNavigate();
+
+  const handleRequestQuote = () => {
+    navigate("/request-quote");
+  };
+
   return (
-    <Container centerContent maxW="container.md" height="100vh" display="flex" flexDirection="column" justifyContent="center" alignItems="center">
-      <VStack spacing={4}>
-        <Text fontSize="2xl">Your Blank Canvas</Text>
-        <Text>Chat with the agent to start making edits.</Text>
+    <Container maxW="container.xl" py={10}>
+      <Heading as="h1" size="2xl" mb={6} textAlign="center">
+        Encontre Profissionais Especializados
+      </Heading>
+      <VStack spacing={8}>
+        {professionals.map((professional, index) => (
+          <Box key={index} p={5} shadow="md" borderWidth="1px" borderRadius="md" width="100%">
+            <Flex align="center">
+              <Image borderRadius="full" boxSize="150px" src={professional.image} alt={professional.name} mr={6} />
+              <Box>
+                <Heading as="h2" size="lg">{professional.name}</Heading>
+                <Text fontSize="xl" color="gray.500">{professional.specialization}</Text>
+                <Text mt={4}>{professional.description}</Text>
+                <Button mt={4} colorScheme="teal" onClick={handleRequestQuote}>
+                  Solicitar Orçamento
+                </Button>
+              </Box>
+            </Flex>
+          </Box>
+        ))}
       </VStack>
     </Container>
   );
